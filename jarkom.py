@@ -8,18 +8,18 @@ def html(output,filename):
     if not output[0] == "" :
         # Jika tidak ada, maka akan dibuat tabel yang berisi file yang ada di dalam server
         for i in output:
-            daftar += f'<tr><td><a href="http://127.0.0.1:10000/{filename}{i}" title="{i}">> {i}</a></td></tr>'
+            daftar += f'<tr><td><a href="http://127.0.0.1:10000/{filename}{i}" title="{i}" target="_blank">> {i}</a></td></tr>'
     # Jika folder di dalamnya kosong
     else:
         # Maka akan menampilkan tulisan "Folder Kosong"
         daftar = f'<tr><td><a href="http://127.0.0.1:10000/" title="Homescreen">Folder Kosong</a></td></tr>'
     html = '<html><body style="background-image: url(http://127.0.0.1:10000/FII1.webp), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center; "><title>Homescreen</title><h1 style=" text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold; padding-bottom: 40px; ">Database Server</h1><style> a {text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold} </style>'+f'<table style="width:50%">{daftar}</table></body></html>'
     return html
-
 def error422():
     ConnectionSocket.send('<html lang="en"><head><title>Error 422</title> </head><body style=" background-image: url(http://127.0.0.1:10000/FII1.webp), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center;"> <style> .yaini{ text-align: center; font-size: 20px; font-family: Century Gothic; color: white; } </style> <teks class="yaini"> <h1 style="padding-top: 20%;">422</h1> <h3>Maaf, file ini tidak dapat ditampilkan</h3> </teks> </body></html>'.encode())
 
 def handle_client(ConnectionSocket, html):
+    message = ""
     try:
         # Menunggu client menekan sesuatu
         message = ConnectionSocket.recv(1024).decode()
@@ -32,6 +32,7 @@ def handle_client(ConnectionSocket, html):
                 # Jika beneran ada, maka di gantikan dengan spasi
                 filename = filename.replace("%20", " ")
             ConnectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+            print("HTTP/1.1 200 OK", ": Client berhasil terhubung ke server")
             # Apabila client mengakses server dengan cara menuliskan IPnya saja
             if filename == "/":
                 # Program akan mengecek seluruh folder yang ada di direktori server
@@ -48,6 +49,7 @@ def handle_client(ConnectionSocket, html):
                     for data in file_to_send:
                         # File akan dikirim ke client
                         ConnectionSocket.sendall(data)
+                print("HTTP/1.1 200 OK", f": Client berhasil mengambil {filename}")
             # Apabila client ingin mengakses folder
             else:
                 # Menghapus '/' di awalan 
@@ -58,11 +60,11 @@ def handle_client(ConnectionSocket, html):
                 if "The system cannot find the path specified." in output:
                     # Jika tidak ada, maka akan di alihkan ke error 404
                     raise IOError
+                # Jika foldernya ada
                 # Mengecek apakah folder ini valid atau tidak
                 elif "The directory name is invalid." in output:
                     # Jika tidak ada, maka akan di alihkan ke error 422
                     error422()
-                # Jika foldernya ada
                 else:
                     # Memanggil dan memproses file HTML
                     html = html(output, f"{''.join(filename)}/")
@@ -70,7 +72,10 @@ def handle_client(ConnectionSocket, html):
                     ConnectionSocket.send(html.encode())
     except IOError:
         # Menampilkan HTML Error 404
-        ConnectionSocket.send('<html lang="en"><head><title>Error 404</title> </head><body style=" background-image: url(http://127.0.0.1:10000/FII1.webp), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center;"> <style> .yaini{ text-align: center; font-size: 20px; font-family: Century Gothic; color: white; text-shadow: 2px 2px rgba(0,0,0,0.5);} </style> <teks class="yaini"> <h1 style="padding-top: 20%;">404</h1> <h3>Halaman yang anda cari tidak ada</h3> </teks> </body></html>'.encode())
+        filename = message.split()[1]
+        if not "/favicon.ico" in filename:
+            ConnectionSocket.send('<html lang="en"><head><title>Error 404</title> </head><body style=" background-image: url(http://127.0.0.1:10000/FII1.webp), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center;"> <style> .yaini{ text-align: center; font-size: 20px; font-family: Century Gothic; color: white; text-shadow: 2px 2px rgba(0,0,0,0.5);} </style> <teks class="yaini"> <h1 style="padding-top: 20%;">404</h1> <h3>Halaman yang anda cari tidak ada</h3> </teks> </body></html>'.encode())
+            print("HTTP/1.1 404 Not Found", ": File yang dicari client tidak ada")
     ConnectionSocket.close()
 
 
@@ -87,4 +92,3 @@ if __name__ == "__main__":
         # Memanggil function HTML
         client = threading.Thread(target=handle_client, args=(ConnectionSocket, html))
         client.start()
-        
