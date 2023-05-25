@@ -16,7 +16,7 @@ def html(output,filename):
             path = os.path.abspath(i)
             # Mengecek jika file tersebut adalah folder atau file yang berformat
             if os.path.isdir(path):
-                # Jika dia adalah file yang berformat maka akan dimasukin di HTML yang tidak berisi target="_blank"
+                # Jika dia adalah folder maka akan dimasukin di HTML yang tidak berisi target="_blank"
                 daftar += f'<tr><td><a href="http://127.0.0.1:10000/{filename}{i}" title="{i}">> {i}</a></td></tr>'
             else:
                 # Jika dia adalah file yang berformat maka akan dimasukin di HTML yang berisi target="_blank"
