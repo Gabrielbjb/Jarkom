@@ -1,25 +1,30 @@
 <html>
-	<body style='background-image: url({urlimage()}), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center; '>
-		<title>Homescreen</title>
-		<h1 style=' text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold; padding-bottom: 40px; '>Database Server</h1>
+	<!-- CSS: Badan Website (body) akan di beri gambar background dan warna gradient, Gambar akan di repeat (infiniti) dan akan di letakan di bawah tengah -->
+	<body style='background-image: url(urlimage), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center; '>
+		<title>Homescreen</title> <!-- Menampilkan Homescreen pada judul website -->
+		<!-- HTML: Menampilkan Tulisan Database Server CSS: Teks akan di letakan di tengah, jenis teks menjadi Century Gothic, warna putih, menambahkan bayangan Pada Teks, teks menjadi bold, ukuran menjadi 40px -->
+		<h1 style=' text-align: center; font-family: Century Gothic; color: white; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold; padding-bottom: 40px; '>Database Server</h1>
 		<style> 
 			a{
-			text-align: center; 
-			font-family: Century Gothic; 
-			color: white; 
-			text-decoration: none; 
-			text-shadow: 1px 1px rgba(0,0,0,0.5); 
-			font-weight: bold
+				text-align: center; /* Membuat teks menjadi rata tengah */
+				font-family: Century Gothic; /* Membuat Jenis teks menjadi Century Gothic */
+				color: white; /* Membuat teks menjadi putih */
+				text-decoration: none; /* Membuat teks tidak menghasilkan garis bawah saat ingin menekan link */
+				text-shadow: 1px 1px rgba(0,0,0,0.5); /* Membuat bayangan Pada Teks */
+				font-weight: bold /* Membuat teks menjadi Bold */
 			} 
 		</style>
-		<table style='width:50%''>
+		<!-- Membuat tabel dengan lebar 50% -->
+		<table style='width:50%'> 
 			<tr>
 				<td>
 					<!--=================================================== Jika tidak ada file di dalamnya ===================================================-->
+					<!-- href: untuk meletakan link, Title: Untuk menampilkan deskripsi nama saat mouse mengarah ke teks -->
 					<a href="http://127.0.0.1:10000/" title="Homescreen">Folder Kosong</a>
 					<!--=================================================== Jika File tersebut berformat ===================================================-->
 					<tr>
 						<td>
+							<!-- href: untuk meletakan link, Title: Untuk menampilkan deskripsi nama saat mouse mengarah ke teks, target: membuka tab baru saat menekan link -->
 							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama File Yang Berformat 1}" title="{Nama File Yang Berformat 1}" target="_blank">> {Nama File Yang Berformat 1}</a>
 						</td>
 					</tr>
@@ -29,12 +34,14 @@
 					.
 					<tr>
 						<td>
+							<!-- href: untuk meletakan link, Title: Untuk menampilkan deskripsi nama saat mouse mengarah ke teks, target: membuka tab baru saat menekan link -->
 							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama File Yang Berformat n}" title="{Nama File Yang Berformat n}" target="_blank">> {Nama File Yang Berformat n}</a>
 						</td>
 					</tr>
 					<!-- Jika File tersebut tidak berformat (Folder)-->
 					<tr>
 						<td>
+							<!-- href: untuk meletakan link, Title: Untuk menampilkan deskripsi nama saat mouse mengarah ke teks -->
 							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama Folder 1}" title="{Nama Folder 1}">> {Nama Folder 1}</a>
 						</td>
 					</tr>
@@ -44,6 +51,7 @@
 					.
 					<tr>
 						<td>
+							<!-- href: untuk meletakan link, Title: Untuk menampilkan deskripsi nama saat mouse mengarah ke teks -->
 							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama Folder n}" title="{Nama Folder n}">> {Nama Folder n}</a>
 						</td>
 					</tr>
