@@ -1,0 +1,54 @@
+<html>
+	<body style='background-image: url({urlimage()}), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center; '>
+		<title>Homescreen</title>
+		<h1 style=' text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold; padding-bottom: 40px; '>Database Server</h1>
+		<style> 
+			a{
+			text-align: center; 
+			font-family: Century Gothic; 
+			color: white; 
+			text-decoration: none; 
+			text-shadow: 1px 1px rgba(0,0,0,0.5); 
+			font-weight: bold
+			} 
+		</style>
+		<table style='width:50%''>
+			<tr>
+				<td>
+					<!--=================================================== Jika tidak ada file di dalamnya ===================================================-->
+					<a href="http://127.0.0.1:10000/" title="Homescreen">Folder Kosong</a>
+					<!--=================================================== Jika File tersebut berformat ===================================================-->
+					<tr>
+						<td>
+							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama File Yang Berformat 1}" title="{Nama File Yang Berformat 1}" target="_blank">> {Nama File Yang Berformat 1}</a>
+						</td>
+					</tr>
+					.
+					.
+					.
+					.
+					<tr>
+						<td>
+							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama File Yang Berformat n}" title="{Nama File Yang Berformat n}" target="_blank">> {Nama File Yang Berformat n}</a>
+						</td>
+					</tr>
+					<!-- Jika File tersebut tidak berformat (Folder)-->
+					<tr>
+						<td>
+							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama Folder 1}" title="{Nama Folder 1}">> {Nama Folder 1}</a>
+						</td>
+					</tr>
+					.
+					.
+					.
+					.
+					<tr>
+						<td>
+							<a href="http://127.0.0.1:10000/{Lokasi Folder Saat Ini}{Nama Folder n}" title="{Nama Folder n}">> {Nama Folder n}</a>
+						</td>
+					</tr>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>"
