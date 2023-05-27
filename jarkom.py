@@ -27,7 +27,7 @@ def htmls(output,filename):
         # Variabel daftar akan diisi dengan HTML yang bertulisan Folder Kosong, yang jika di klik maka akan mengalihkan pengguna ke halaman awal
         daftar = f'<tr><td><a href="http://127.0.0.1:10000/" title="Homescreen">Folder Kosong</a></td></tr>'
     # Variabel html akan diisi dengan HTML dan css dan menampilkan visual web
-    html = f"<html><body style='background-image: url({urlimage()}), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center; '><title>Homescreen</title><h1 style=' text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold; padding-bottom: 40px; '>Database Server</h1><style> a" + "{text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold} </style>"+f"<table style='width:50%''>{daftar}</table></body></html>"
+    html = f"<html><body style='background-image: url({urlimage()}), linear-gradient(#2491ef,#60b2f2,#60d6f2); background-repeat: repeat-x; background-position: bottom center; '><title>Tubes Jarkom</title><h1 style=' text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold; padding-bottom: 40px; '>Tubes Jarkom</h1><style> a" + "{text-align: center; font-family: Century Gothic; color: white; text-decoration: none; text-shadow: 1px 1px rgba(0,0,0,0.5); font-weight: bold} </style>"+f"<table style='width:50%''>{daftar}</table></body></html>"
     # Function akan mereturn hasil kode html
     return html
 
