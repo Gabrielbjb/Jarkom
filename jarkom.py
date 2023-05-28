@@ -59,7 +59,7 @@ def handle_client(ConnectionSocket,addr):
                             # File akan dikirim ke client
                             ConnectionSocket.sendall(data)
                     # Python akan menampilkan tulisan bahwa client berhasil mengambil file tersebut 
-                    print(f"[{addr[0]}:{addr[1]}]: Client berhasil mengambil {filename}")
+                    print(f"[{addr[0]}:{addr[1]}]: Client berhasil mengambil {filename}","(200)")
                 # Apabila client membatalkan unduhan file
                 except ConnectionAbortedError:
                     # Python akan menampilkan tulisan bahwa client membatalkan mengambil file tersebut 
