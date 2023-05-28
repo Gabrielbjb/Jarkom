@@ -47,19 +47,8 @@ def handle_client(ConnectionSocket,addr):
             # mengalokasikan path dengan alamat dan nama file yang di inginkan client
             path = os.path.abspath(f"{os.getcwd()}\{filename}")
             # Apabila client mengakses server dengan cara menuliskan IPnya saja
-            if filename == "/":
-                # Program akan mengecek seluruh folder yang ada di direktori server
-                output = subprocess.getoutput(f"dir /b").split("\n")
-                # Memanggil dan memproses file HTML
-                html = htmls(output,"")
-                # Mengirim sinyal (atau pesan error) ke browser bahwa url yang di tuju users tidak ditemukan (dapat di cek di Inspect Element > Network)
-                ConnectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
-                # Mengirim kode HTML kepada client
-                ConnectionSocket.send(html.encode())
-                # Python akan menampilkan tulisan bahwa client berhasil menuju url tersebut 
-                print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server:", f"'{filename}'", "(200)")
             # Apabila client ingin mengakses file yang ada formatnya (misal: pdf, word, txt, dll)
-            elif not os.path.isdir(path):
+            if not os.path.isdir(path):
                 # Server akan membuka file yang ingin client akses di server
                 try:
                     # Python akan membuka file yang ingin client akses di server
@@ -78,12 +67,19 @@ def handle_client(ConnectionSocket,addr):
                     print(f"[{addr[0]}:{addr[1]}]: Client membatalkan file {filename}")
             # Apabila client ingin mengakses folder
             else:
-                # Menghapus '/' di awalan 
-                filename = filename.split("/", 1)
-                # Server akan membuka folder yang ingin client akses di server lalu mengecek seluruh folder yang ada di direktori server
-                output = subprocess.getoutput(f"cd {''.join(filename)} & dir /b").split("\n")
-                # Memanggil dan memproses file HTML
-                html = htmls(output, f"{''.join(filename)}/")
+                # Apabila client mengakses server dengan cara menuliskan IP dan socketnya saja
+                if filename == "/":
+                    # Program akan mengecek seluruh folder yang ada di direktori server
+                    output = subprocess.getoutput(f"dir /b").split("\n")
+                    # Memanggil dan memproses file HTML
+                    html = htmls(output,"")
+                else:
+                    # Menghapus '/' di awalan 
+                    filename = filename.split("/", 1)
+                    # Server akan membuka folder yang ingin client akses di server lalu mengecek seluruh folder yang ada di direktori server
+                    output = subprocess.getoutput(f"cd {''.join(filename)} & dir /b").split("\n")
+                    # Memanggil dan memproses file HTML
+                    html = htmls(output, f"{''.join(filename)}/")
                 # Mengirim kode HTML kepada client
                 ConnectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
                 # Python akan menampilkan tulisan bahwa client berhasil menuju url tersebut
