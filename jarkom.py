@@ -46,7 +46,6 @@ def handle_client(ConnectionSocket,addr):
                 filename = filename.replace("%20", " ")
             # mengalokasikan path dengan alamat dan nama file yang di inginkan client
             path = os.path.abspath(f"{os.getcwd()}\{filename}")
-            # Apabila client mengakses server dengan cara menuliskan IPnya saja
             # Apabila client ingin mengakses file yang ada formatnya (misal: pdf, word, txt, dll)
             if not os.path.isdir(path):
                 # Server akan membuka file yang ingin client akses di server
