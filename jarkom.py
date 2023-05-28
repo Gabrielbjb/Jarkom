@@ -82,21 +82,14 @@ def handle_client(ConnectionSocket,addr):
                 filename = filename.split("/", 1)
                 # Server akan membuka folder yang ingin client akses di server lalu mengecek seluruh folder yang ada di direktori server
                 output = subprocess.getoutput(f"cd {''.join(filename)} & dir /b").split("\n")
-                # Mengecek apakah folder ini ada di server
-                if "The system cannot find the path specified." in output:
-                    # Jika tidak ada, maka akan di alihkan ke error 404
-                    raise IOError
-                # Jika foldernya ada
-                # Mengecek apakah folder ini valid atau tidak
-                else:
-                    # Memanggil dan memproses file HTML
-                    html = htmls(output, f"{''.join(filename)}/")
-                    # Mengirim kode HTML kepada client
-                    ConnectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
-                    # Python akan menampilkan tulisan bahwa client berhasil menuju url tersebut
-                    print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server (200)")
-                    # Mengirim kode HTML kepada client
-                    ConnectionSocket.send(html.encode())
+                # Memanggil dan memproses file HTML
+                html = htmls(output, f"{''.join(filename)}/")
+                # Mengirim kode HTML kepada client
+                ConnectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+                # Python akan menampilkan tulisan bahwa client berhasil menuju url tersebut
+                print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server (200)")
+                # Mengirim kode HTML kepada client
+                ConnectionSocket.send(html.encode())
     except IOError:
         # Menampilkan HTML Error 404
         # Mengambil nama file yang client/browser ingin akses
