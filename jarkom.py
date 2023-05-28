@@ -57,7 +57,7 @@ def handle_client(ConnectionSocket,addr):
                 # Mengirim kode HTML kepada client
                 ConnectionSocket.send(html.encode())
                 # Python akan menampilkan tulisan bahwa client berhasil menuju url tersebut 
-                print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server (200)")
+                print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server:", f"'{filename}'", "(200)")
             # Apabila client ingin mengakses file yang ada formatnya (misal: pdf, word, txt, dll)
             elif not os.path.isdir(path):
                 # Server akan membuka file yang ingin client akses di server
@@ -87,7 +87,7 @@ def handle_client(ConnectionSocket,addr):
                 # Mengirim kode HTML kepada client
                 ConnectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
                 # Python akan menampilkan tulisan bahwa client berhasil menuju url tersebut
-                print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server (200)")
+                print(f"[{addr[0]}:{addr[1]}]:","Client berhasil terhubung ke server:", f"'{''.join(filename)}'","(200)")
                 # Mengirim kode HTML kepada client
                 ConnectionSocket.send(html.encode())
     except IOError:
@@ -109,19 +109,13 @@ def handle_client(ConnectionSocket,addr):
 
 if __name__ == "__main__":
     # Ini buat atur jaringan
-    # Membuat objek socket dengan menggunakan metode socket dari modul socket
-    # AF_INET mengindikasikan bahwa kita menggunakan IPv4 untuk komunikasi,
-    # SOCK_STREAM menunjukkan bahwa kita menggunakan protokol TCP/IP untuk mengirim data melalui socket
     serversocket = socket(AF_INET, SOCK_STREAM)
-    serverport = 10000 # Menginisialisasi variabel serverport dengan nomor port 10000
-    serversocket.bind(('127.0.0.1', serverport)) # Mengikat socket server ke alamat IP lokal (127.0.0.1) dan nomor port (serverport)
-    serversocket.listen() # Memulai socket server untuk mendengarkan koneksi masuk
-    while True: # Memulai loop tak terbatas untuk menerima koneksi dari client secara berulang
-        # Menerima koneksi dari client menggunakan metode accept() pada socket server
+    serverport = 10000
+    serversocket.bind(('127.0.0.1', serverport))
+    serversocket.listen()
+    while True:
+        # Kode kesepakatan client dan server
         ConnectionSocket, addr = serversocket.accept()
-        # Membuat objek thread (client) dengan target fungsi handle_client dan argumen ConnectionSocket dan addr
-        # Ini memungkinkan pemrosesan paralel untuk setiap koneksi client menggunakan threading
+        # Memanggil function HTML
         client = threading.Thread(target=handle_client, args=(ConnectionSocket,addr))
-        # Memulai eksekusi thread dengan memanggil metode start()
-        # Ini akan menjalankan fungsi handle_client secara simultan untuk setiap koneksi client
         client.start()
